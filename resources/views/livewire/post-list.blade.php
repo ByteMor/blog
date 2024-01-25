@@ -1,12 +1,26 @@
 <div class=" px-3 lg:px-7 py-6">
     <div class="flex justify-between items-center border-b border-gray-100">
-        <div class="text-gray-600">
+        <div class="text-gray-600 gap-x-1">
+
+            @if ($this->ActiveCategory || $Search)
+                <button class="gray-500 text-xs mr-3" wire:navigate href="{{ route('posts.index') }}">Reset</button>
+            @endif
+
+            @if ($this->ActiveCategory)
+                <x-badge wire:navigate href="{{ route('posts.index', ['Category' => $this->ActiveCategory]) }}"
+                    :TextColor="$this->ActiveCategory->text_color" :BackgroundColor="$this->ActiveCategory->background_color">
+                    {{ $this->ActiveCategory->title }}
+                </x-badge>
+            @endif
+
             @if ($Search)
-                Searching for... `{{ $Search }}`
+                <span class="ml-2">
+                    Searching for... ` <strong>{{ $Search }}</strong>`
+                </span>
             @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">
-            <button class="{{ $sort === 'desc' ? 'text-gray-900 border-b border-gray-700' : 'text-gray-500' }}  py-4"
+            <button class="{{ $sort === 'desc' ? 'text-gray-900 border-b border-gray-700' : 'text-gray-500' }} py-4"
                 wire:click="SetSort('desc')">Latest</button>
             <button class="{{ $sort === 'asc' ? 'text-gray-900 border-b border-gray-700' : 'text-gray-500' }} py-4  "
                 wire:click="SetSort('asc')">Oldest</button>
