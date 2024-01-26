@@ -30,6 +30,11 @@ class Post extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function Likes()
+    {
+        return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
+    }
+
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -68,4 +73,5 @@ class Post extends Model
     {
         return str_contains($this->image, 'https://') ? $this->image : Storage::disk('public')->url($this->image);
     }
+
 }

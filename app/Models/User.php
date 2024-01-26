@@ -20,6 +20,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    public const col_id = "id";
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,4 +62,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function Likes()
+    {
+        return $this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+    }
+
+    public function HasLiked(Post $Post)
+    {
+        return $this->Likes()->where('post_id', $Post->id)->exists();
+    }
 }
