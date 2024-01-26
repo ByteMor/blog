@@ -27,7 +27,7 @@
             class="article-actions-bar my-6 flex text-sm items-center justify-between border-t border-b border-gray-100 py-4 px-2">
             <div class="flex items-center">
                 <div>
-                    <livewire:like-button :key="$post->id" :Post="$post" />
+                    <livewire:like-button :key="'like-button_' . $post->id" :Post="$post" />
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
             @endforeach
         </div>
 
-        <livewire:post-comments />
+        <livewire:post-comments :key="'comment_' . $post->id" :post="$post" />
 
     </article>
 

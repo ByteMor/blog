@@ -30,6 +30,11 @@ class Post extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function Comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function Likes()
     {
         return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
