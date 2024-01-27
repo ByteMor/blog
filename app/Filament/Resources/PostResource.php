@@ -73,7 +73,11 @@ class PostResource extends Resource
                 TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
                 TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
-                CheckboxColumn::make('featured'),
+                CheckboxColumn::make('featured')->beforeStateUpdated(function ($record, $state) {
+                    if (auth()->user()->IsAdmin() === false) {
+                        return false;
+                    }
+                }),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
